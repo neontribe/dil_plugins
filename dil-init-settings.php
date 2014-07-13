@@ -1,0 +1,39 @@
+<?php
+
+define( 'DIL_PLUGIN_PATH', plugin_dir_path( __FILE__ ) . 'dayinlife.php' );
+
+register_activation_hook( DIL_PLUGIN_PATH, 'dil_init_settings' );
+
+/**
+ * Initialise A Day in the Life site options.
+ */
+function dil_init_settings() { 
+	// Set up core defaults options vars in wp_options table.
+	// http://codex.wordpress.org/Option_Reference
+	$core_settings = array(
+		'default_comment_status' => 'closed',
+		'default_role' => 'contributor',
+		'comments_per_page' => 0,
+		'blogdescription' => __( 'A Day in the Life Slogan' ),
+		'date_format' => __( 'j F Y' ),
+		'permalink_structure' => '/%postname%/',
+	);
+	foreach ( $core_settings as $k => $v ) {
+		update_option( $k, $v );
+	}
+	//Delete dummy content.
+	wp_delete_post( 1, true );
+	wp_delete_post( 2, true );
+	wp_delete_comment( 1 );
+}
+
+
+/**
+ * Remove tags, format and comments from default post type
+ */
+function dil_remove_post_format_comment() {
+	remove_meta_box('formatdiv', 'post', 'side');
+	remove_meta_box('commentsdiv', 'post', 'normal');
+}
+add_action('add_meta_boxes', 'dil_remove_post_format_comment');
+?>
