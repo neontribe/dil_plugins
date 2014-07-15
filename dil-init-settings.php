@@ -29,11 +29,31 @@ function dil_init_settings() {
 
 
 /**
- * Remove tags, format and comments from default post type
+ * Remove tags, format and comments from default post type.
  */
 function dil_remove_post_format_comment() {
 	remove_meta_box('formatdiv', 'post', 'side');
 	remove_meta_box('commentsdiv', 'post', 'normal');
 }
 add_action('add_meta_boxes', 'dil_remove_post_format_comment');
+
+/**
+ * Remove tools and comments from menus.
+ */
+function dil_remove_admin_menu_items() {
+  $items = array('edit-comments.php', 'tools.php');
+  foreach ($items as $item) {
+    remove_menu_page($item);
+  }
+}
+add_action('admin_menu', 'dil_remove_admin_menu_items');
+
+/**
+ *  Remove comments link from admin bar.
+ */
+function dil_remove_admin_bar_items() {
+  global $wp_admin_bar;
+  $wp_admin_bar->remove_menu('comments');
+}
+add_action('wp_before_admin_bar_render', 'dil_remove_admin_bar_items');
 ?>
