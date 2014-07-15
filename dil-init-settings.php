@@ -29,11 +29,19 @@ function dil_init_settings() {
 
 
 /**
- * Remove tags, format and comments from default post type.
+ * Remove format and comments from default post type.
+ *
+ * Show tags and categories for admin only
+ *
  */
 function dil_remove_post_format_comment() {
-	remove_meta_box('formatdiv', 'post', 'side');
-	remove_meta_box('commentsdiv', 'post', 'normal');
+	remove_meta_box( 'formatdiv', 'post', 'side' ); // Formats
+  remove_meta_box( 'commentsdiv', 'post', 'normal' ); // Comments
+  remove_meta_box( 'postimagediv', 'post', 'side' ); //Featured image
+  if ( !current_user_can( 'manage_options' ) ) {
+    remove_meta_box( 'tagsdiv-post_tag','post','side' ); // Tags Metabox
+    remove_meta_box( 'categorydiv','post','side' ); // Categories Metabox
+  }
 }
 add_action('add_meta_boxes', 'dil_remove_post_format_comment');
 
