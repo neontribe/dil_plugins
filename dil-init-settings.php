@@ -41,9 +41,11 @@ function dil_remove_post_format_comment() {
   if ( !current_user_can( 'manage_options' ) ) {
     remove_meta_box( 'tagsdiv-post_tag','post','side' ); // Tags Metabox
     remove_meta_box( 'categorydiv','post','side' ); // Categories Metabox
-  }
+    remove_meta_box( 'ef_editorial_meta', 'post', 'side' ); // Edit Flow Editorial metadata
+	  remove_meta_box( 'edit-flow-editorial-comments', 'post', 'normal' ); // Edit Flow Editorial Comments
+	}
 }
-add_action('add_meta_boxes', 'dil_remove_post_format_comment');
+add_action('do_meta_boxes', 'dil_remove_post_format_comment');
 
 /**
  * Remove tools and comments from menus.
