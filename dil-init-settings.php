@@ -29,9 +29,11 @@ function dil_init_settings() {
 
 
 /**
- * Remove format and comments from default post type.
+ * Clear unused metaboxes from Contributor edit post view.
  *
- * Show tags and categories for admin only
+ * Remove format, comments, image from default post type.
+ *
+ * Show tags, categories, and editflow boxes for admin only
  *
  */
 function dil_remove_post_format_comment() {
@@ -48,6 +50,19 @@ function dil_remove_post_format_comment() {
 add_action('do_meta_boxes', 'dil_remove_post_format_comment');
 
 /**
+ * Callback for filters - return false if user is not admin.
+ */
+function dil_is_admin() {
+  if (!current_user_can( 'manage_options' )) {
+	  return false;
+	} else {
+  return true;
+	}
+}
+add_filter('screen_options_show_screen', 'dil_is_admin'); // Remove screen layout options dropdown tab from contrib post edit view.
+
+
+/**
  * Remove tools and comments from menus.
  */
 function dil_remove_admin_menu_items() {
@@ -55,6 +70,9 @@ function dil_remove_admin_menu_items() {
   foreach ($items as $item) {
     remove_menu_page($item);
   }
+	if (!dil_is_admin()) {
+	  remove_menu_page('index.php');
+	}
 }
 add_action('admin_menu', 'dil_remove_admin_menu_items');
 
