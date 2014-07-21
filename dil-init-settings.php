@@ -40,7 +40,7 @@ function dil_remove_post_format_comment() {
 	remove_meta_box( 'formatdiv', 'post', 'side' ); // Formats
   remove_meta_box( 'commentsdiv', 'post', 'normal' ); // Comments
   remove_meta_box( 'postimagediv', 'post', 'side' ); //Featured image
-  if ( !current_user_can( 'manage_options' ) ) {
+  if ( !current_user_can( 'manage_options' ) && !current_user_can('editor') ) {
     remove_meta_box( 'tagsdiv-post_tag','post','side' ); // Tags Metabox
     remove_meta_box( 'categorydiv','post','side' ); // Categories Metabox
     remove_meta_box( 'ef_editorial_meta', 'post', 'side' ); // Edit Flow Editorial metadata
@@ -50,10 +50,10 @@ function dil_remove_post_format_comment() {
 add_action('do_meta_boxes', 'dil_remove_post_format_comment');
 
 /**
- * Callback for filters - return false if user is not admin.
+ * Callback for filters - return false if user is not admin or editor.
  */
 function dil_is_admin() {
-  if (!current_user_can( 'manage_options' )) {
+  if (!current_user_can( 'manage_options' ) && !current_user_can('editor')) {
 	  return false;
 	} else {
   return true;
