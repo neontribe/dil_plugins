@@ -25,6 +25,18 @@ function dil_init_settings() {
 	wp_delete_post( 1, true );
 	wp_delete_post( 2, true );
 	wp_delete_comment( 1 );
+
+  // Set contributor permissions
+	dil_contrib_permissions();
+}
+
+/**
+ * Once published, a contributor can not edit own post, 
+ * but we'd like them to have permission to delete them.
+ */
+function dil_contrib_permissions() {
+  $role = get_role( 'contributor' );
+  $role->add_cap( 'delete_published_posts' );
 }
 
 
