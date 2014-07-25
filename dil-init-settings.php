@@ -98,31 +98,15 @@ function dil_remove_admin_bar_items() {
 add_action('wp_before_admin_bar_render', 'dil_remove_admin_bar_items');
 
 /**
- *  If user is a contributor, revoke wysiwyg editor.
- * DITCHED in favour of plugin to customise allowed wysiwyg buttons.
- 
-function dil_wysiwyg_settings() {
-   if (!current_user_can('manage_options')) { 
-	   add_filter( 'user_can_richedit', '__return_false' );
-		 add_action( 'admin_print_styles-profile.php', 'hide_rich_edit_option' );
-		 add_action( 'admin_print_styles-user-edit.php', 'hide_rich_edit_option' );	
-	 }
+ *  If user is a contributor, load contributor.css
+ *  Use this to hide or emphesise elements for contributor only.
+ */
+function dil_load_contrib_stylesheet() {
+$templateuri = get_template_directory_uri();
+  if(current_user_can('contributor')){
+	  wp_enqueue_style('contributor', $templateuri.'/css/contributor.css');
+  }
 }
-*/
-
-/**
- * Hide option to use rich editor (on user profile).
- * Called for non-admins wehen user_can_richedit is forced to false.
- 
-function hide_rich_edit_option() {
-	?><style type="text/css">
-		label[for=rich_editing] input { display: none; }
-	  label[for=rich_editing]:before { content: 'This option has been disabled. (Formerly: ' }
-		label[for=rich_editing]:after { content: ')'; }
-		</style><?php
-}
-
-add_action('init', 'dil_wysiwyg_settings');
-*/
+add_action('admin_head', 'dil_load_contrib_stylesheet');
 
 ?>
