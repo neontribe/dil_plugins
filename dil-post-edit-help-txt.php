@@ -49,42 +49,41 @@ function dil_top_right_help_metabox_content() { ?>
 <?php }
 
 /**
- * Add contextual help tab to post edit screen
- * 
- */
+* Add contextual help tab to post edit screen
+* 
+*/
 function dil_contextual_help( $help_text, $screen_id, $screen ) {
-	switch ($screen_id) {
-	  case 'post':
-		  $screen->remove_help_tabs(); // To remove wordpress defaults
-			$screen->add_help_tab( array(
-			  'id' => 'guidelines',
-				'title' => 'Day in the Life guidelines',
-				'content' => '', // From callback
-				'callback' => 'dil_post_help',
-			));
-			$screen->add_help_tab( array(
-			  'id' => 'other-info',
-				'title' => 'Day in the Life Information',
-				'content' => '<p>Important information about posting. Can be made specific to user type - admin or contributor.</p>', // From callback
-			));
-
-			$screen->set_help_sidebar(
-			  '<p>Information and links here...</p>'
-			);
-
-	    return;
-
-	  default:
-		  return;
-	}
+  switch ($screen_id) {
+    case 'post':
+      $screen->remove_help_tabs(); // To remove wordpress defaults
+      $screen->add_help_tab( array(
+	'id' => 'guidelines',
+	'title' => 'Day in the Life guidelines',
+	'content' => '', // From callback
+	'callback' => 'dil_post_guidelines',
+      ));
+      $screen->add_help_tab( array(
+	'id' => 'other-info',
+	'title' => 'Day in the Life Information',
+	'content' => '<p>Important information about posting. Can be made specific to user type - admin or contributor.</p>', // From callback
+      ));
+      $screen->set_help_sidebar(
+	'<p>Information and links here...</p>'
+      );
+      return;
+      
+      default:
+      return;
+  }
 }
 
 /**
- * Callback - Help text for post pages
- */
-function dil_post_help() {
-  echo '<h3>Guidelines for writing a post</h3>';
-	echo '<p>Your guidelines here...</p>';
+* Callback - Help text for post pages
+*/
+function dil_post_guidelines() {
+echo '<h3>Guidelines for writing a post</h3>';
+$guidelines_page_content = 'hello';
+echo $guidelines_page_content;
 }
 add_action( 'contextual_help', 'dil_contextual_help', 5, 3);
 
