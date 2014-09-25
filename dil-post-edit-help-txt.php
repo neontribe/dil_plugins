@@ -44,7 +44,7 @@ function dil_top_right_help_metabox_content() { ?>
 	<p>
 		 Make sure you click 'Submit for review' below once you've finished your story, to send it to our moderators for publishing. 
 		 Use the 'Draft' button to save any changes while you are working on it.
-		 You'll get an email to confrim your submission and another notifying you when it's published.
+		 You'll get an email to confirm your submission and another notifying you when it's published.
 	</p>
 <?php }
 
