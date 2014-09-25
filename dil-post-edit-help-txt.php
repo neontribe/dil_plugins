@@ -64,11 +64,12 @@ function dil_contextual_help( $help_text, $screen_id, $screen ) {
       ));
       $screen->add_help_tab( array(
 	'id' => 'other-info',
-	'title' => 'Day in the Life Information',
-	'content' => '<p>Important information about posting. Can be made specific to user type - admin or contributor.</p>', // From callback
+	'title' => 'Day in the Life FAQs about contributing',
+  'content' => '', // From callback
+  'callback' => 'dil_post_faq_contrib',
       ));
       $screen->set_help_sidebar(
-	'<p>Information and links here...</p>'
+	      '<p></p>'
       );
       return;
       
@@ -78,13 +79,29 @@ function dil_contextual_help( $help_text, $screen_id, $screen ) {
 }
 
 /**
-* Callback - Help text for post pages
+* Callback - Help text guidelines for post pages
 */
 function dil_post_guidelines() {
 echo '<h3>Guidelines for writing a post</h3>';
-$guidelines_page_content = 'hello';
+$guidelines_page = get_page_by_title( 'Guidelines' );
+
+$strip_email = str_replace( '[email]', '', $guidelines_page->post_content );
+$guidelines_page_content = str_replace( '[/email]', '', $strip_email );
 echo $guidelines_page_content;
 }
+
+/**
+* Callback - Help text FAQ and contributing for post pages
+*/
+function dil_post_faq_contrib() {
+echo '<h3>FAQs about contributing</h3>';
+$contrib_page = get_page_by_title( 'Contributing' );
+
+$strip_email = str_replace( '[email]', '', $contrib_page->post_content );
+$contrib_page_content = str_replace( '[/email]', '', $strip_email );
+echo $contrib_page_content;
+}
+
 add_action( 'contextual_help', 'dil_contextual_help', 5, 3);
 
 //code.tutsplus.com/articles/customizing-the-wordpress-admin-help-text--wp-33281
