@@ -10,24 +10,22 @@ Author URI: http://www.neontribe.co.uk
 * Add metabox below editing pane
 */
 function dil_metabox_after_title() {
-	    add_meta_box( 'after-title-help', 'Tips for writing your story', 'dil_after_title_help_metabox_content', 'post', 'advanced', 'high' );
+	    add_meta_box( 'after-title-help', 'Tips for writing your story', 'dil_after_title_help_metabox_content', 'post', 'side', 'high' );
 } 
 add_action( 'add_meta_boxes', 'dil_metabox_after_title' );
 
 /**
  * callback function to populate metabox
  */
-function dil_after_title_help_metabox_content() { ?> 
-<p>
-  Use this form to add your story.
-
-  Follow these tips for the best chance of getting published.
-  <ol>
-    <li>Keep below the word count of 700 words.</li>
-    <li>Don't use inappropriate language</li>
-  </ol>
-</p>
-<?php }
+function dil_after_title_help_metabox_content() { 
+  $tips_page = get_page_by_title( 'Tips for writing your story' );
+        if ($tips_page) {
+          echo $tips_page->post_content;
+        }
+        else {    
+    echo 'For detailed guidelines and contributing FAQs click the dropdown help tab in the top right of this page.';
+        }
+        }
 
 /**
  * Add help text to right of screen in a metabox
