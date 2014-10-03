@@ -81,7 +81,7 @@ function dil_contextual_help( $help_text, $screen_id, $screen ) {
 */
 function dil_post_guidelines() {
 echo '<h3>Guidelines for writing a post</h3>';
-$guidelines_page = get_page_by_title( 'Guidelines' );
+$guidelines_page = get_page_by_title( 'Writing Guidelines' );
 
 $strip_email = str_replace( '[email]', '', $guidelines_page->post_content );
 $guidelines_page_content = str_replace( '[/email]', '', $strip_email );
